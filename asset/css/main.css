@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
+
+* {
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body{
+  background-image: url('https://images.unsplash.com/photo-1601662528567-526cd06f6582?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=715&q=80');
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  padding: 48px 0;
+  background-color: #f8f9fa;
+}
+
+.sidebar .nav-link {
+  color: #000;
+}
+
+.content {
+  margin-left: 220px;
+  /* Set this value to match the width of the sidebar */
+  padding: 20px;
+}
+
+.form-padding-border {
+  border-radius: 1rem;
+  padding: 0.7rem 1rem;
+}
+
+.form-background{
+  background-color: #F1EFEF;
+}
+
+.form-margin-bot{
+  margin-bottom: 1.5rem;
+}
+
+.logo img{
+  width: 150px;
+  margin-top: 1rem;
+}
+
+.margintop{
+  margin-top: 1rem;
+}
+
+.nav-pills li a:hover{
+  background-color: #32ddf3;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: rgb(128, 203, 216);
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.75rem;
+}

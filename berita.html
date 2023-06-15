@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-
+fit=no">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>check</title>
+    <!-- Custom fonts for this template-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Custom styles for this template-->
+    <link href="asset/css/main.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-firestore.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAIxeu0FfEwPLPzpRpEw9np2uAp6-kybBQ",
+            authDomain: "znews-1e995.firebaseapp.com",
+            databaseURL: "https://znews-1e995-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "znews-1e995",
+            storageBucket: "znews-1e995.appspot.com",
+            messagingSenderId: "591177777366",
+            appId: "1:591177777366:web:9b79855cc9ea3cc4020977"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+    </script>
+
+    <meta charset="ISO-8859-1">
+    <title>Tambah berita</title>
+</head>
+
+<body>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <div class="flex-nowrap row">
+            <div class="bg-dark col-md-2 min-vh-100">
+                <div class="bg-dark">
+                    <a class="d-flex logo align-items-center form-padding-border" href="berita.html">
+                        <img src="asset/img/logo-w.png" alt="">
+                    </a>
+                    <ul class="nav nav-pills flex-column margintop">
+                        <li class="nav-link">
+                            <a href="tambah_berita.html" class="nav-link text-white">Tambah Berita</a>
+                        </li>
+                        <li class="nav-link">
+                            <a href="berita.html" class="nav-link active text-white">Berita</a>
+                        </li>
+                        <li class="nav-link">
+                            <a href="index.html" class="nav-link text-white">Example add Feddback</a>
+                        </li>
+                        <li class="nav-link">
+                            <a href="Terima-feedback.html" class="nav-link text-white">Feedback</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9 form-padding-border">
+                <!-- Page Heading -->
+                <h1 class="h3 mb-4 text-gray-800">Berita</h1>
+                <div class="card form-margin-bot">
+                    <div class="card-body ">
+                        <table class="table" id="tb_berita">
+                            <thead>
+                                <tr>
+                                    <th>Id Berita</th>
+                                    <th>Nama Berita</th>
+                                    <th>Kategori</th>
+                                    <th>Deskripsi</th>
+                                    <th>content</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <div class="card">
+                    <form class="form-padding-border">
+                        <div class="row">
+
+                            <div class="col-sm-6 form-margin-bot ">
+                                <input type="text" class="form-control form-padding-border" id="uid"
+                                    placeholder="id berita">
+                            </div>
+                            <div class="col-sm-6 dorm form-margin-bot">
+                                <select name="typee" id="selectType" class="form-control form-padding-border ">
+                                    <option>choose</option>
+                                    <option value="Sport">Sport</option>
+                                    <option value="Racing">Racing</option>
+                                    <option value="Internationl">Internationl</option>
+                                    <option value="Business">Business</option>
+                                </select>
+                            </div>
+                            <div class="form-margin-bot">
+                                <input type="text" class="form-control form-padding-border" id="enterName"
+                                    placeholder="Nama Berita">
+                            </div>
+                            <div class="form-margin-bot">
+                                <textarea id="DeskBerita" placeholder="Deskripsi berita"
+                                    class="form-control form-padding-border" cols="30" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-margin-bot">
+                            <textarea id="IsiBerita" placeholder="Isi berita" class="form-control form-padding-border"
+                                cols="30" rows="15"></textarea>
+                        </div>
+                        <button type="button" value="Update" onclick="update_product();"
+                            class="btn btn-success">Update</button>
+                        <button type="button" value="Delete" onclick="delete_product();"
+                            class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+        var tbBerita = document.getElementById('tb_berita');
+        var databaseRef = firebase.database().ref('Berita/');
+        var rowIndex = 1;
+
+        databaseRef.once('value', function (snapshot) {
+            snapshot.forEach(function (childSnapshot) {
+                var childKey = childSnapshot.key;
+                var childData = childSnapshot.val();
+                var row = tbBerita.insertRow(rowIndex);
+                var cellUId = row.insertCell(0);
+                var cellType = row.insertCell(1);
+                var cellName = row.insertCell(2);
+                var cellDesc = row.insertCell(3);
+                var cellIsi = row.insertCell(4);
+                cellUId.appendChild(document.createTextNode(childKey));
+                cellType.appendChild(document.createTextNode(childData.tipe));
+                cellName.appendChild(document.createTextNode(childData.nama));
+                cellDesc.appendChild(document.createTextNode(childData.deskripsi));
+                cellIsi.appendChild(document.createTextNode(childData.Isi));
+                rowIndex = rowIndex + 1;
+            });
+
+            var table = document.getElementById("tb_berita");
+            var rows = table.getElementsByTagName("tr");
+
+            for (i = 0; i < rows.length; i++) {
+                var currentRow = table.rows[i];
+                var createClickHandler = function(row) {
+                return function() {
+                var cell1 = row.getElementsByTagName("td")[0];
+                var cell2 = row.getElementsByTagName("td")[1];
+                var cell3 = row.getElementsByTagName("td")[2];
+                var cell4 = row.getElementsByTagName("td")[3];
+                var cell5 = row.getElementsByTagName("td")[4];
+
+                var id = cell1.innerHTML;
+                var tipe = cell2.innerHTML;
+                var nama = cell3.innerHTML;
+                var deskripsi = cell4.innerHTML;
+                var Isi = cell5.innerHTML;
+
+                document.getElementById('uid').value = id;
+                document.getElementById('selectType').value = tipe;
+                document.getElementById('enterName').value = nama;
+                document.getElementById('DeskBerita').value = deskripsi;
+                document.getElementById('IsiBerita').value = Isi;
+                };
+            };
+            currentRow.onclick = createClickHandler(currentRow);
+            }
+        });
+        
+
+        function update_product() {
+            var tipe = document.getElementById('selectType').value;
+            var nama = document.getElementById('enterName').value;
+            var deskripsi = document.getElementById('DeskBerita').value;
+            var Isi = document.getElementById('IsiBerita').value;
+            var uid = document.getElementById('uid').value;
+            var data = {
+                tipe: tipe,
+                nama: nama,
+                deskripsi: deskripsi,
+                Isi: Isi
+            }
+            var updates = {};
+            updates['/Berita/' + uid] = data;
+            firebase.database().ref().update(updates);
+            alert('product updated successfully!');
+            reload_page();
+        }
+
+        function delete_product() {
+            var uid = document.getElementById('uid').value;
+            firebase.database().ref().child('/Berita/' + uid).remove();
+            alert('product deleted successfully!');
+            reload_page();
+        }
+
+        function reload_page() {
+            window.location.reload();
+        }
+
+
+
+
+    </script>
+    <!-- End Off main Content-->
+</body>
+
+</html>

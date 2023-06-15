@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-
+fit=no">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>check</title>
+    <!-- Custom fonts for this template-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Custom styles for this template-->
+    <link href="asset/css/main.css" rel="stylesheet">
+
+    <meta charset="ISO-8859-1">
+    <title>Tambah berita</title>
+</head>
+
+<body>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <div class="flex-nowrap row">
+            <div class="bg-dark col-md-2 min-vh-100">
+                <div class="bg-dark">
+                    <a class="d-flex logo align-items-center form-padding-border" href="berita.html">
+                        <img src="asset/img/logo-w.png" alt="">
+                    </a>
+                    <ul class="nav nav-pills flex-column margintop">
+                        <li class="nav-link">
+                            <a href="tambah_berita.html" class="nav-link active text-white">Tambah Berita</a>
+                        </li>
+                        <li class="nav-link">
+                            <a href="berita.html" class="nav-link  text-white">Berita</a>
+                        </li>
+                        <li class="nav-link">
+                            <a href="index.html" class="nav-link text-white">Example add Feddback</a>
+                        </li>
+                        <li class="nav-link">
+                            <a href="Terima-feedback.html" class="nav-link text-white">Feedback</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9 form-padding-border">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="h3 mb-4 text-gray-800">Tambah Berita</h1>
+                        <form>
+                            <div class=" row">
+                                <div class="col-sm-6  form-margin-bot">
+                                    <select name="typee" id="selectType" class="form-control form-padding-border ">
+                                        <option>choose</option>
+                                        <option value="Sport">Sport</option>
+                                        <option value="Racing">Racing</option>
+                                        <option value="Internationl">Internationl</option>
+                                        <option value="Business">Business</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6 form-margin-bot">
+                                    <input type="text" class="form-control form-padding-border" id="enterName"
+                                        placeholder="Nama Berita">
+                                </div>
+                                <div class="form-margin-bot">
+                                    <input type="file" class="form-control form-padding-border" id="gambar-input">
+                                </div>
+                                <div class="form-margin-bot">
+                                    <textarea id="DeskBerita" placeholder="Deskripsi berita"
+                                        class="form-control form-padding-border" cols="30" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-margin-bot">
+                                <textarea id="IsiBerita" placeholder="Isi berita"
+                                    class="form-control form-padding-border" cols="30" rows="15"></textarea>
+                            </div>
+                            <div class="form-margin-bot">
+                                <input type="button" value="save" id="insert"
+                                    class="btn btn-primary btn-user btnblock" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- Page Heading -->
+
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+    </div>
+    <!-- End of Main Content -->
+
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js";
+        import { getDatabase, ref as r, push, onValue, set, remove } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAIxeu0FfEwPLPzpRpEw9np2uAp6-kybBQ",
+            authDomain: "znews-1e995.firebaseapp.com",
+            databaseURL: "https://znews-1e995-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "znews-1e995",
+            storageBucket: "znews-1e995.appspot.com",
+            messagingSenderId: "591177777366",
+            appId: "1:591177777366:web:9b79855cc9ea3cc4020977"
+        };
+
+
+        // Inisialisasi Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const storage = getStorage(app);
+        const gambarRef = r(database, 'Berita');
+
+        // Tambah data
+        let tambahButton = document.getElementById("insert");
+
+        tambahButton.addEventListener("click", (e) => {
+            const nama = document.getElementById('enterName').value;
+            const tipe = document.getElementById('selectType').value;
+            const deskripsi = document.getElementById('DeskBerita').value;
+            const Isi = document.getElementById('IsiBerita').value;
+            const file = document.getElementById('gambar-input').files[0];
+
+            if (file && nama && tipe && deskripsi && Isi) {
+                const storageRef = ref(storage, 'Berita/' + file.name);
+
+                uploadBytes(storageRef, file)
+                    .then(() => {
+                        getDownloadURL(storageRef)
+                            .then((url) => {
+                                const gambarDataRef = push(gambarRef);
+                                set(gambarDataRef, {
+                                    nama: nama,
+                                    tipe: tipe,
+                                    deskripsi: deskripsi,
+                                    Isi: Isi,
+                                    url: url
+                                })
+                                    .then(() => {
+                                        console.log('Gambar berhasil diunggah');
+                                        document.getElementById('enterName').value = '';
+                                        document.getElementById('selectType').value = '';
+                                        document.getElementById('DeskBerita').value = '';
+                                        document.getElementById('IsiBerita').value = '';
+                                        document.getElementById('gambar-input').value = '';
+                                        alert("Data added succcessfully")
+                                    })
+                                    .catch((error) => {
+                                        console.error('Error:', error);
+                                    });
+                            })
+                            .catch((error) => {
+                                console.error('Error:', error);
+                            });
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+            }
+        }
+
+        );
+    </script>
+
+</body>
+
+</html>
