@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-
+fit=no">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>SB Admin 2 - Register</title>
+    <!-- Custom fonts for this template-->
+
+    <!-- Custom styles for this template-->
+    <link href="asset/css/main.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-
+database.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-
+firestore.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+https://firebase.google.com/docs/web/setup#available-libraries -->
+
+
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAIxeu0FfEwPLPzpRpEw9np2uAp6-kybBQ",
+            authDomain: "znews-1e995.firebaseapp.com",
+            databaseURL: "https://znews-1e995-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "znews-1e995",
+            storageBucket: "znews-1e995.appspot.com",
+            messagingSenderId: "591177777366",
+            appId: "1:591177777366:web:9b79855cc9ea3cc4020977"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+</head>
+
+<body style="background-color: #F8F8F8;">
+    <div class="containerr">
+        <div class="card ">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="p-5">
+                            <div class="text-center logo1" >
+                                <img src="asset/img/LOGO.png" >
+                            </div>
+                            <div class="user">
+                                <div class="form-group form-padding-border">
+                                    <input type="email" class="form-control form-control-user" id="email"
+                                        placeholder="Email Address">
+                                </div>
+                                <div class="form-group form-padding-border">
+                                    <div class="col-md12 mb-3 mb-sm-0">
+                                        <input type="password" class="form-control form-control-user" id="password"
+                                            placeholder="Password">
+                                    </div>
+                                </div>
+                                <div class="form-group form-padding-border">
+                                    <div class="col-md-12 ">
+                                        <input type="password" class="form-control form-control-user"
+                                            id="repeatPassword" placeholder="Repeat Password">
+                                    </div>
+                                </div>
+                                <div class="align-items-center form-padding-border">
+                                    <button class="btn btn-primary btn-user btn-block" onclick="signUp()"
+                                    id="signUp">Register Account</button>
+                                </div>
+                                
+                            </div>
+                            <div class="text-center form-padding-border">
+                                <a class="small" href="login.html">Already have an account?
+                                    Login!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    <!-- Custom scripts for all pages-->
+    <script>
+        function signUp() {
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var repeat = document.getElementById("repeatPassword").value;
+            if (password == repeat) {
+                firebase.auth().createUserWithEmailAndPassword(email, password).then(function
+                    () {
+                    alert("Registration Success!");
+                    window.location.href = "login.html";
+
+                }).catch(function (error) {
+
+                    var errorMessage = error.message;
+                    alert(errorMessage);
+                });
+            }
+            else {
+                alert("Password & Repeat Password do not match!");
+            }
+        }
+    </script>
+</body>
+
+</html>

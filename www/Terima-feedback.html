@@ -27,9 +27,12 @@ fit=no">
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 
-    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-firestore.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyAIxeu0FfEwPLPzpRpEw9np2uAp6-kybBQ",
@@ -61,16 +64,24 @@ fit=no">
                     </a>
                     <ul class="nav nav-pills flex-column margintop">
                         <li class="nav-link">
+                            <span class="mr-2 d-none d-lg-inline text-white">
+                                <div id="username"></div>
+                            </span>
+                        </li>
+                        <li class="nav-link">
                             <a href="tambah_berita.html" class="nav-link text-white">Tambah Berita</a>
                         </li>
                         <li class="nav-link">
-                            <a href="berita.html" class="nav-link text-white">Berita</a>
+                            <a href="berita.html" class="nav-link  text-white">Berita</a>
                         </li>
                         <li class="nav-link">
                             <a href="index.html" class="nav-link text-white">Example add Feddback</a>
                         </li>
                         <li class="nav-link">
-                            <a href="Terima-feedback.html" class="nav-link active text-white">feedback</a>
+                            <a href="Terima-feedback.html" class="nav-link active text-white">Feedback</a>
+                        </li>
+                        <li class="nav-link">
+                            <a onclick="signOut()"><i class="fa fa-sign-out"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -150,6 +161,39 @@ fit=no">
 
 
     </script>
+
+    <script>
+        //logout
+        function signOut() {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Logout!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    firebase.auth().signOut();
+                    window.location.href = "login.html";
+                }
+            })
+
+        }
+    </script>
+
+    <script>
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                document.getElementById("username").innerText = user.email;
+            }
+            else {
+                window.location.href = "login.html";
+            }
+        })
+    </script>
+
     <!-- End Off main Content-->
 </body>
 
