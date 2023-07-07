@@ -10,7 +10,7 @@ fit=no">
 
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>RUD Berita</title>
+    <title>check</title>
     <!-- Custom fonts for this template-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -91,13 +91,14 @@ fit=no">
                 <h1 class="h3 mb-4 text-gray-800">Berita</h1>
                 <div class="card form-margin-bot">
                     <div class="card-body ">
-                        <table class="table" id="tb_berita">
+                        <table class="table" id="tb_berita" >
                             <thead>
                                 <tr>
                                     <th>Id Berita</th>
-                                    <th>Nama Berita</th>
                                     <th>Kategori</th>
+                                    <th>Nama Berita</th>
                                     <th>Deskripsi</th>
+                                    <th>Foto</th>
                                     <th>content</th>
                                 </tr>
                             </thead>
@@ -131,6 +132,9 @@ fit=no">
                             </div>
                         </div>
                         <div class="form-margin-bot">
+                            <input type="text" class="form-control form-padding-border" id="gambar-input">
+                        </div>
+                        <div class="form-margin-bot">
                             <textarea id="IsiBerita" placeholder="Isi berita" class="form-control form-padding-border"
                                 cols="30" rows="15"></textarea>
                         </div>
@@ -160,11 +164,14 @@ fit=no">
                 var cellType = row.insertCell(1);
                 var cellName = row.insertCell(2);
                 var cellDesc = row.insertCell(3);
-                var cellIsi = row.insertCell(4);
+                var cellImg = row.insertCell(4);
+                var cellIsi = row.insertCell(5);
+                
                 cellUId.appendChild(document.createTextNode(childKey));
                 cellType.appendChild(document.createTextNode(childData.tipe));
                 cellName.appendChild(document.createTextNode(childData.nama));
                 cellDesc.appendChild(document.createTextNode(childData.deskripsi));
+                cellImg.appendChild(document.createTextNode(childData.url));
                 cellIsi.appendChild(document.createTextNode(childData.Isi));
                 rowIndex = rowIndex + 1;
             });
@@ -181,17 +188,20 @@ fit=no">
                         var cell3 = row.getElementsByTagName("td")[2];
                         var cell4 = row.getElementsByTagName("td")[3];
                         var cell5 = row.getElementsByTagName("td")[4];
+                        var cell6 = row.getElementsByTagName("td")[5];
 
                         var id = cell1.innerHTML;
                         var tipe = cell2.innerHTML;
                         var nama = cell3.innerHTML;
                         var deskripsi = cell4.innerHTML;
-                        var Isi = cell5.innerHTML;
+                        var url = cell5.innerHTML;
+                        var Isi = cell6.innerHTML;
 
                         document.getElementById('uid').value = id;
                         document.getElementById('selectType').value = tipe;
                         document.getElementById('enterName').value = nama;
                         document.getElementById('DeskBerita').value = deskripsi;
+                        document.getElementById('gambar-input').value = url;
                         document.getElementById('IsiBerita').value = Isi;
                     };
                 };
@@ -204,13 +214,16 @@ fit=no">
             var tipe = document.getElementById('selectType').value;
             var nama = document.getElementById('enterName').value;
             var deskripsi = document.getElementById('DeskBerita').value;
+            var url = document.getElementById('gambar-input').value;
             var Isi = document.getElementById('IsiBerita').value;
             var uid = document.getElementById('uid').value;
             var data = {
                 tipe: tipe,
                 nama: nama,
                 deskripsi: deskripsi,
+                url: url, 
                 Isi: Isi
+                       
             }
             var updates = {};
             updates['/Berita/' + uid] = data;
